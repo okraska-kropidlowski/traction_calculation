@@ -13,13 +13,16 @@ while time < overall_time:
     #CALCULATIONS
     time = time + time_step
     speed = speed + (acceleration * time_step)
+    distance = distance + (speed * time_step)
 
     #FORMATTING
     speed_kmh = speed * 3.6
     time_0f = ("{:.0f}".format(time))
     speed_2f = ("{:.2f}".format(speed_kmh))
+    distance_2f = ("{:.2f}".format(distance))
 
     #DISPLAYING
     print("Time point: " + str(time_0f) + " s")
     print("Current speed: " + str(speed_2f) + " km/h")
+    print("Travelled distance: " + str(distance_2f) + " m")
     sleep(0.5)
