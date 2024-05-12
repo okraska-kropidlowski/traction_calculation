@@ -3,6 +3,8 @@ from time import sleep
 time = 0
 speed = 0
 distance = 0
+tractive_force = 320 #[kN]
+wheel_diameter = 950 #[mm]
 
 acceleration = float(input("Provide the vehicle acceleration [m/s²]: "))
 time_step = float(input("Provide the calculation time step [s]: "))
@@ -14,6 +16,7 @@ while time < overall_time:
     time = time + time_step
     speed = speed + (acceleration * time_step)
     distance = distance + (speed * time_step)
+    #ROTATIONAL SPEED
 
     #FORMATTING
     speed_kmh = speed * 3.6
