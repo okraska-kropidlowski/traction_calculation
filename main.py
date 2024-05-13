@@ -1,11 +1,13 @@
 from time import sleep
 import math
-import parameters.py
+from parameters import *
 
 time = 0
 speed = 0
 distance = 0
+tractive_effort = 0
 
+tractive_effort = float(input("Provide the required tractive effort [kN]: "))
 acceleration = float(input("Provide the vehicle acceleration [m/s²]: "))
 time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
@@ -15,7 +17,10 @@ while time < overall_time:
     #CALCULATIONS
     time = time + time_step
     if speed <= speed_max:
-        speed = speed + (acceleration * time_step)
+        if speed <= (power_max / (tractive_effort * 3.6)):
+            speed = speed + (acceleration * time_step)
+        else:
+            speed = power_max / (tractive_effort * 3.6)
     else:
         speed = speed_max
     distance = distance + (speed * time_step)
