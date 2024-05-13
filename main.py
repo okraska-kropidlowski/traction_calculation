@@ -1,6 +1,6 @@
 from time import sleep
 import math
-from parameters import *
+import parameters
 
 time = 0
 speed = 0
@@ -16,17 +16,17 @@ while time < overall_time:
 
     #CALCULATIONS
     time = time + time_step
-    if speed <= speed_max:
-        if speed <= (power_max / (tractive_effort * 3.6)):
+    if speed <= parameters.speed_max:
+        if speed <= (parameters.power_max / (tractive_effort * 3.6)):
             speed = speed + (acceleration * time_step)
         else:
-            speed = power_max / (tractive_effort * 3.6)
+            speed = parameters.power_max / (tractive_effort * 3.6)
     else:
-        speed = speed_max
+        speed = parameters.speed_max
     distance = distance + (speed * time_step)
     #ROTATIONAL SPEED OF THE TRACTION MOTOR [rpm]
-    rotational_speed = (speed * 60) / (2 * math.pi * (wheel_diameter / 1000))
-    rotational_speed_motor = rotational_speed * gear_ratio
+    rotational_speed = (speed * 60) / (2 * math.pi * (parameters.wheel_diameter / 1000))
+    rotational_speed_motor = rotational_speed * parameters.gear_ratio
 
     #FORMATTING
     speed_kmh = speed * 3.6
