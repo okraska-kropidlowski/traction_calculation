@@ -1,11 +1,6 @@
 from time import sleep
 import math
-
-#LOCOMOTIVE PARAMETERS
-tractive_force_max = 340 #[kN]
-power_max = 6400 #[kW]
-wheel_diameter = 1250 #[mm]
-gear_ratio = 5.261
+import parameters.py
 
 time = 0
 speed = 0
@@ -19,7 +14,10 @@ while time < overall_time:
 
     #CALCULATIONS
     time = time + time_step
-    speed = speed + (acceleration * time_step)
+    if speed <= speed_max:
+        speed = speed + (acceleration * time_step)
+    else:
+        speed = speed_max
     distance = distance + (speed * time_step)
     #ROTATIONAL SPEED OF THE TRACTION MOTOR [rpm]
     rotational_speed = (speed * 60) / (2 * math.pi * (wheel_diameter / 1000))
