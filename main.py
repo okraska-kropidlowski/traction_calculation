@@ -12,7 +12,7 @@ acceleration = float(input("Provide the vehicle acceleration [m/s²]: "))
 time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
 max_speed = min(parameters.speed_max, ((parameters.power_max / tractive_effort) * 3.6))
-print(max_speed)
+print("Speed limit: " + max_speed + "km/h")
 
 while time < overall_time:
 
