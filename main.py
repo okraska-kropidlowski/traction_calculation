@@ -56,4 +56,5 @@ while time < overall_time:
         print("Travelled distance: " + str(distance_2f_km) + " km")
     print("Motor rotational speed: " + str(rotational_speed_motor_2f) + " rpm")
     print("Power at wheel: " + str(power_at_wheel_0f) + " kW")
+    print("Line power: " + str(line_power_0f) + " kW")
     sleep(0.5)
