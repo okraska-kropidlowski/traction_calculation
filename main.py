@@ -14,6 +14,9 @@ overall_time = float(input("Provide the total calculation time [s]: "))
 max_speed = min(parameters.speed_max, ((parameters.power_max / tractive_effort) * 3.6))
 print("Speed limit: " + str(max_speed) + "km/h")
 
+#DICTIONARY OF CALCULATED PARAMETERS
+travel_record = {}
+
 while time < overall_time:
 
     if time + time_step < overall_time:
@@ -47,6 +50,15 @@ while time < overall_time:
     power_at_wheel_0f = ("{:.0f}".format(power_at_wheel))
     line_power_0f = ("{:.0f}".format(line_power))
     
+    #ADD PARAMETERS TO TRAVEL RECORD
+    parameters_in_point = {}
+    parameters_in_point["speed"] = speed
+    parameters_in_point["distance"] = distance
+    parameters_in_point["rotational_speed_motor"] = rotational_speed_motor
+    parameters_in_point["power_at_wheel"] = power_at_wheel
+    parameters_in_point["line_power"] = line_power
+    travel_record[time] = parameters_in_point
+
     #DISPLAYING
     print("Time point: " + str(time_0f) + " s")
     print("Current speed: " + str(speed_1f) + " km/h")
@@ -58,3 +70,5 @@ while time < overall_time:
     print("Power at wheel: " + str(power_at_wheel_0f) + " kW")
     print("Line power: " + str(line_power_0f) + " kW")
     sleep(0.5)
+
+print(travel_record)
