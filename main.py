@@ -16,9 +16,13 @@ print("Speed limit: " + str(max_speed) + "km/h")
 
 while time < overall_time:
 
-    time = time + time_step
+    if time + time_step < overall_time:
+        time = time + time_step
+    else:
+        time = overall_time
 
-    #CALCULATIONS
+    #CALCULATIONS:
+    #SPEED [km/h]
     if speed + (acceleration * time_step * 3.6) < max_speed:
         speed = speed + (acceleration * time_step * 3.6)
     else:
@@ -30,8 +34,9 @@ while time < overall_time:
     rotational_speed = (speed * 60) / (2 * math.pi * (parameters.wheel_diameter / 1000))
     rotational_speed_motor = rotational_speed * parameters.gear_ratio
 
-    #POWER AT WHEEL [#kW]
+    #POWER AT WHEEL/LINE POWER [kW]
     power_at_wheel = tractive_effort * (speed / 3.6)
+    line_power = power_at_wheel / parameters.traction_chain_efficiency
 
     #FORMATTING
     time_0f = ("{:.0f}".format(time))
@@ -40,6 +45,7 @@ while time < overall_time:
     distance_2f_km = ("{:.2f}".format(distance / 1000))
     rotational_speed_motor_2f = ("{:.2f}".format(rotational_speed_motor))
     power_at_wheel_0f = ("{:.0f}".format(power_at_wheel))
+    line_power_0f = ("{:.0f}".format(line_power))
     
     #DISPLAYING
     print("Time point: " + str(time_0f) + " s")
