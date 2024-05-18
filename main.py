@@ -37,13 +37,17 @@ while time < overall_time:
     time_0f = ("{:.0f}".format(time))
     speed_1f = ("{:.1f}".format(speed))
     distance_2f = ("{:.2f}".format(distance))
+    distance_2f_km = ("{:.2f}".format(distance / 1000))
     rotational_speed_motor_2f = ("{:.2f}".format(rotational_speed_motor))
     power_at_wheel_0f = ("{:.0f}".format(power_at_wheel))
     
     #DISPLAYING
     print("Time point: " + str(time_0f) + " s")
     print("Current speed: " + str(speed_1f) + " km/h")
-    print("Travelled distance: " + str(distance_2f) + " m")
+    if distance < 1000:
+        print("Travelled distance: " + str(distance_2f) + " m")
+    else:
+        print("Travelled distance: " + str(distance_2f_km) + " km")
     print("Motor rotational speed: " + str(rotational_speed_motor_2f) + " rpm")
     print("Power at wheel: " + str(power_at_wheel_0f) + " kW")
     sleep(0.5)
