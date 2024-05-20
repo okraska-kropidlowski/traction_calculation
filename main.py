@@ -19,6 +19,10 @@ print("Speed limit: " + str(max_speed) + "km/h")
 
 #DICTIONARY OF CALCULATED PARAMETERS
 travel_record = {}
+with open('test.csv','w') as file:
+    writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
+    row_content = ["Time [s]", "Speed [km/s]", "Travelled distance [km]", "Motor rotational speed [rpm]", "Power at wheel [kW]", "Line power drawn [kW]"]
+    writer.writerow(row_content)
 
 while time < overall_time:
 
