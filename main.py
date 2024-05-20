@@ -2,6 +2,7 @@ from time import sleep
 import math
 import parameters
 from pprint import pprint
+import csv
 
 
 time = 0
@@ -60,6 +61,11 @@ while time < overall_time:
     parameters_in_point["power_at_wheel"] = power_at_wheel
     parameters_in_point["line_power"] = line_power
     travel_record[time] = parameters_in_point
+
+    with open('test.csv','a') as file:
+        writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
+        row_content = [time, speed_1f, distance_2f_km, rotational_speed_motor_2f, power_at_wheel_0f, line_power_0f]
+        writer.writerow(row_content)
 
     #DISPLAYING
     print("Time point: " + str(time_0f) + " s")
