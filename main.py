@@ -1,6 +1,8 @@
 from time import sleep
 import math
 import parameters
+from pprint import pprint
+
 
 time = 0
 speed = 0
@@ -71,4 +73,4 @@ while time < overall_time:
     print("Line power: " + str(line_power_0f) + " kW")
     sleep(0.5)
 
-print(travel_record)
+pprint(travel_record)
