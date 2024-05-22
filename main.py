@@ -11,9 +11,8 @@ speed = 0
 distance = 0
 tractive_effort = 0
 
-tractive_effort = float(input("Provide the tractive effort [kN]: "))
+tractive_effort = float(input("Provide the tractive effort [kN]: "))    #TO MA BYC LICZONE, MASA POCIAGu ITP.
 gradient = float(input("Provide track gradient [°]: "))
-#acceleration = float(input("Provide the vehicle acceleration [m/s²]: "))
 time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
 acceleration_force = (parameters.tractive_force - tractive_effort + ((parameters.mass * 1000) * scipy.constants.g * math.sin(gradient)))
