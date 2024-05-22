@@ -23,7 +23,7 @@ print("Speed limit: " + str(max_speed) + "km/h")
 travel_record = {}
 with open('test.csv','w') as file:
     writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
-    row_content = ["Time [s]", "Speed [km/s]", "Travelled distance [km]", "Motor rotational speed [rpm]", "Power at wheel [kW]", "Line power drawn [kW]"]
+    row_content = ["Time [s]", "Acceleration [m/s²]", "Speed [km/s]", "Travelled distance [km]", "Motor rotational speed [rpm]", "Power at wheel [kW]", "Line power drawn [kW]"]
     writer.writerow(row_content)
 
 while time < overall_time:
