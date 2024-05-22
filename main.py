@@ -15,7 +15,7 @@ tractive_effort = float(input("Provide the tractive effort [kN]: "))    #TO MA B
 gradient = float(input("Provide track gradient [°]: "))
 time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
-acceleration_force = (parameters.tractive_force - tractive_effort + ((parameters.mass * 1000) * scipy.constants.g * math.sin(gradient)))
+acceleration_force = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(math.radians(gradient))))
 max_speed = min(parameters.speed_max, ((parameters.power_max / acceleration_force) * 3.6))
 print("Speed limit: " + str(max_speed) + "km/h")
 
@@ -35,7 +35,7 @@ while time < overall_time:
 
     #CALCULATIONS:
     #ACCELERATION [m/s²] AND SPEED [km/h]
-    acceleration = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(gradient))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
+    acceleration = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(math.radians(gradient)))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
 
     if speed + (acceleration * time_step * 3.6) < max_speed:
         speed = speed + (acceleration * time_step * 3.6)
@@ -74,7 +74,7 @@ while time < overall_time:
 
     with open('test.csv','a') as file:
         writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
-        row_content = [time, speed_1f, distance_2f_km, rotational_speed_motor_2f, power_at_wheel_0f, line_power_0f]
+        row_content = [time, acceleration_2f, speed_1f, distance_2f_km, rotational_speed_motor_2f, power_at_wheel_0f, line_power_0f]
         writer.writerow(row_content)
 
     #DISPLAYING
