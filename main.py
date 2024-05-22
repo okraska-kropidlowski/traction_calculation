@@ -1,20 +1,23 @@
+#IMPORTS
 from time import sleep
 import math
+import scipy.constants
 import parameters
 from pprint import pprint
 import csv
-
 
 time = 0
 speed = 0
 distance = 0
 tractive_effort = 0
 
-tractive_effort = float(input("Provide the required tractive effort [kN]: "))
-acceleration = float(input("Provide the vehicle acceleration [m/s²]: "))
+tractive_effort = float(input("Provide the tractive effort [kN]: "))
+gradient = float(input("Provide track gradient [°]: "))
+#acceleration = float(input("Provide the vehicle acceleration [m/s²]: "))
 time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
-max_speed = min(parameters.speed_max, ((parameters.power_max / tractive_effort) * 3.6))
+acceleration_force = (parameters.tractive_force - tractive_effort + ((parameters.mass * 1000) * scipy.constants.g * math.sin(gradient)))
+max_speed = min(parameters.speed_max, ((parameters.power_max / acceleration_force) * 3.6))
 print("Speed limit: " + str(max_speed) + "km/h")
 
 #DICTIONARY OF CALCULATED PARAMETERS
@@ -32,7 +35,9 @@ while time < overall_time:
         time = overall_time
 
     #CALCULATIONS:
-    #SPEED [km/h]
+    #ACCELERATION [m/s²] AND SPEED [km/h]
+    acceleration = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(gradient))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
+
     if speed + (acceleration * time_step * 3.6) < max_speed:
         speed = speed + (acceleration * time_step * 3.6)
     else:
@@ -50,6 +55,7 @@ while time < overall_time:
 
     #FORMATTING
     time_0f = ("{:.0f}".format(time))
+    acceleration_2f = ("{:.2f}".format(acceleration))
     speed_1f = ("{:.1f}".format(speed))
     distance_2f = ("{:.2f}".format(distance))
     distance_2f_km = ("{:.2f}".format(distance / 1000))
@@ -59,6 +65,7 @@ while time < overall_time:
     
     #ADD PARAMETERS TO TRAVEL RECORD
     parameters_in_point = {}
+    parameters_in_point["acceleration"] = acceleration
     parameters_in_point["speed"] = speed
     parameters_in_point["distance"] = distance
     parameters_in_point["rotational_speed_motor"] = rotational_speed_motor
@@ -73,6 +80,7 @@ while time < overall_time:
 
     #DISPLAYING
     print("Time point: " + str(time_0f) + " s")
+    print("Current acceleration: " + str(acceleration_2f) + " m/s²")    
     print("Current speed: " + str(speed_1f) + " km/h")
     if distance < 1000:
         print("Travelled distance: " + str(distance_2f) + " m")
