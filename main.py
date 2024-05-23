@@ -9,13 +9,12 @@ import csv
 time = 0
 speed = 0
 distance = 0
-tractive_effort = 0
 
 tractive_effort = float(input("Provide the tractive effort [kN]: "))    #TO MA BYC LICZONE, MASA POCIAGu ITP.
-gradient = float(input("Provide track gradient [°]: "))
+gradient = math.radians(float(input("Provide track gradient [°]: ")))
 time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
-acceleration_force = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(math.radians(gradient))))
+acceleration_force = parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(gradient))
 max_speed = min(parameters.speed_max, ((parameters.power_max / acceleration_force) * 3.6))
 print("Speed limit: " + str(max_speed) + "km/h")
 
@@ -35,7 +34,7 @@ while time < overall_time:
 
     #CALCULATIONS:
     #ACCELERATION [m/s²] AND SPEED [km/h]
-    acceleration = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(math.radians(gradient)))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
+    acceleration = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(gradient))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
 
     if speed + (acceleration * time_step * 3.6) < max_speed:
         speed = speed + (acceleration * time_step * 3.6)
