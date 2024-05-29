@@ -5,6 +5,7 @@ import scipy.constants
 import parameters
 from pprint import pprint
 import csv
+import forces
 
 time = 0
 speed = 0
@@ -29,12 +30,12 @@ while time < overall_time:
 
     #CALCULATIONS:
     #ACCELERATION [m/s²] AND SPEED [km/h]
-    acceleration = (parameters.tractive_force - tractive_effort + (parameters.mass * scipy.constants.g * math.sin(gradient))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
+    acceleration = (parameters.tractive_force - forces.tractive_effort + (parameters.mass * scipy.constants.g * math.sin(forces.gradient))) / (parameters.mass + (parameters.axle_count * 4)) #wspolczynnik mas wirujacych: ~4 t
 
-    if speed + (acceleration * time_step * 3.6) < max_speed:
+    if speed + (acceleration * time_step * 3.6) < forces.max_speed:
         speed = speed + (acceleration * time_step * 3.6)
     else:
-        speed = max_speed
+        speed = forces.max_speed
 
     distance = distance + (speed * time_step)
 
@@ -43,7 +44,7 @@ while time < overall_time:
     rotational_speed_motor = rotational_speed * parameters.gear_ratio
 
     #POWER AT WHEEL/LINE POWER [kW]
-    power_at_wheel = tractive_effort * (speed / 3.6)
+    power_at_wheel = forces.tractive_effort * (speed / 3.6)
     line_power = power_at_wheel / parameters.traction_chain_efficiency
 
     #FORMATTING
