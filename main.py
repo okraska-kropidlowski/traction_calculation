@@ -2,6 +2,7 @@
 import math
 import scipy.constants
 import parameters
+import subprocess
 
 #FORCES CALCULATION
 tractive_effort = float(input("Provide the tractive effort [kN]: "))    #TO MA BYC LICZONE, MASA POCIAGU ITP.
@@ -20,3 +21,5 @@ with open("forces.py", "w") as forces:
     forces.write("acceleration_force = " + str(acceleration_force) + "\n")
     forces.write("gradient = " + str(gradient) + "\n")
     forces.write("max_speed = " + str(max_speed) + "\n")
+
+subprocess.run(["python", "calculation.py"])
