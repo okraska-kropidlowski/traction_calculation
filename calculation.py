@@ -6,6 +6,7 @@ import parameters
 from pprint import pprint
 import csv
 import forces
+import datetime
 
 time = 0
 speed = 0
@@ -15,10 +16,14 @@ time_step = float(input("Provide the calculation time step [s]: "))
 overall_time = float(input("Provide the total calculation time [s]: "))
 
 #DICTIONARY OF CALCULATED PARAMETERS
+filename_date = str(datetime.datetime.now()) + ".csv"
+filename = filename_date.replace(":", "-")
+print("Saving to file: " + filename_date)
+
 travel_record = {}
-with open('test.csv','w') as file:
+with open(filename, 'w') as file:
     writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
-    row_content = ["Time [s]", "Acceleration [m/s²]", "Speed [km/s]", "Travelled distance [km]", "Motor rotational speed [rpm]", "Power at wheel [kW]", "Line power drawn [kW]"]
+    row_content = ["Time [s], Acceleration [m/s²], Speed [km/s], Travelled distance [km], Motor rotational speed [rpm], Power at wheel [kW], Line power drawn [kW]"]
     writer.writerow(row_content)
 
 while time < overall_time:
@@ -67,9 +72,9 @@ while time < overall_time:
     parameters_in_point["line_power"] = line_power
     travel_record[time] = parameters_in_point
 
-    with open('test.csv','a') as file:
+    with open(filename,'a') as file:
         writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
-        row_content = [time, acceleration_2f, speed_1f, distance_2f_km, rotational_speed_motor_2f, power_at_wheel_0f, line_power_0f]
+        row_content = [str(time) + ",", str(acceleration_2f) + ",", str(speed_1f) + ",", str(distance_2f_km) + ",", str(rotational_speed_motor_2f) + ",", str(power_at_wheel_0f) + ",", str(line_power_0f)]
         writer.writerow(row_content)
 
     #DISPLAYING
