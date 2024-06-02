@@ -22,8 +22,8 @@ print("Saving to file: " + filename_date)
 
 travel_record = {}
 with open(filename, 'w') as file:
-    writer = csv.writer(file, delimiter='\t',lineterminator='\n',)
-    row_content = ["Time [s], Acceleration [m/s²], Speed [km/s], Travelled distance [km], Motor rotational speed [rpm], Power at wheel [kW], Line power drawn [kW]"]
+    writer = csv.writer(file, delimiter = '\t',lineterminator = '\n',)
+    row_content = ["Time [s], Acceleration [m/s^2], Speed [km/s], Travelled distance [km], Motor rotational speed [rpm], Power at wheel [kW], Line power drawn [kW]"]
     writer.writerow(row_content)
 
 while time < overall_time:
